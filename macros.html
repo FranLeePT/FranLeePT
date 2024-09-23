@@ -75,10 +75,10 @@
                 break;
         }
 
-        // Calculate macros based on a typical 40/30/30 ratio
-        const protein = totalCalories * 2.2;
-        const carbs = totalCalories * 1;
-        const fats = totalCalories * 0.5;
+        // Calculate macros based on the new ratio
+        const protein = weight * 2.2;
+        const carbs = weight * 1;
+        const fats = weight * 0.5;
 
         // Display results
         resultsDiv.innerHTML = `
