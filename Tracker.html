@@ -1,77 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Weight Loss Progress Tracker</title>
+    <title>Weight Loss Calculator</title>
     <style>
-      body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f2f2f2;
-}
-
-.calculator {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #666;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px   
- 20px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-#result {
-  font-weight: bold;   
-
-  text-align: center;
-}
+        /* Your CSS styles here */
     </style>
 </head>
 <body>
-    <h1>My Weight Loss Progress</h1>
+    <h1>Weight Loss Calculator</h1>
 
-    <div class="metric">
-        <h2>Weight</h2>
-        <p>Starting weight: <span id="starting-weight">180 lbs</span></p>
-        <p>Current weight: <span id="current-weight">170 lbs</span></p>
-        <p>Weight lost: <span id="weight-lost">10 lbs</span></p>
-    </div>
+    <label for="current-weight">Current Weight (lbs):</label>
+    <input type="number" id="current-weight">
 
-    <div class="metric">
-        <h2>Body Fat Percentage</h2>
-        <p>Starting body fat: <span id="starting-body-fat">25%</span></p>
-        <p>Current body fat: <span id="current-body-fat">22%</span></p>
-        <p>Body fat lost: <span id="body-fat-lost">3%</span></p>
-    </div>
+    <label for="height">Height (inches):</label>
+    <input type="number" id="height">
 
-    <div class="progress-bar">
-        <div class="progress-bar-inner" style="width: 75%;"></div>
-    </div>
-    <p>Progress: 75%</p>
+    <label for="calorie-deficit">Daily Calorie Deficit (calories):</label>
+    <input type="number" id="calorie-deficit">
+
+    <button onclick="calculateWeightLoss()">Calculate</button>
+
+    <p id="estimated-weight-loss"></p>
 </body>
+<script>
+    function calculateWeightLoss() {
+        // Get user input
+        const currentWeight = parseFloat(document.getElementById("current-weight").value);
+        const height = parseFloat(document.getElementById("height").value);
+        const calorieDeficit = parseFloat(document.getElementById("calorie-deficit").value);
+
+        // Calculate estimated weight loss in 3 months (assuming 30 days per month)
+        const estimatedWeightLoss = (calorieDeficit * 30 * 3) / 3500;
+
+        // Display the result
+        document.getElementById("estimated-weight-loss").textContent = `Estimated weight loss in 3 months: ${estimatedWeightLoss.toFixed(2)} lbs`;
+    }
+</script>
 </html>
