@@ -22,6 +22,20 @@ function calculate() {
 
   document.getElementById("result").textContent = result;
 }
+
+let startingWeight = 0;
+let estimatedWeeklyWeightLoss = 0;
+
+function calculate() {
+  // ... (rest of your calculate() function)
+
+  // Update global variables
+  startingWeight = parseFloat(document.getElementById("startingWeight").value);
+  estimatedWeeklyWeightLoss = caloricDeficit * 7 / 3500;
+
+  // ... (rest of your chart configuration)
+}
+
 // Create a Chart.js chart
 const ctx = document.getElementById('myChart').getContext('2d');
 const chart = new Chart(ctx, {
