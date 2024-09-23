@@ -2,31 +2,68 @@
 <html>
 <head>
     <title>Fitness Questionnaire</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Dark black background */
+            color: #fff; /* White text */
+        }
+
+        .calculator {
+            background-color: #333; /* Dark gray background */
+            color: #fff;
+        }
+
+        h1 {
+            color: #8e44ad; /* Dark purple heading */
+        }
+
+        label {
+            color: #ccc; /* Light gray labels */
+        }
+
+        input, select, button {
+            background-color: #444;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #result {
+            color: #8e44ad; /* Dark purple result */
+        }
+    </style>
 </head>
 <body>
-    <h1>Fitness Questionnaire</h1>
-    <form id="questionnaire">
-        <label for="currentFitnessLevel">Current Fitness Level:</label>
-        <select id="currentFitnessLevel">
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-        </select>
-        <br>
-        <label   
- for="fitnessGoals">Fitness Goals:</label>
-        <textarea id="fitnessGoals"></textarea>
-        <br>
-        <label for="availableTrainingTime">Available Training Time (hours/week):</label>
-        <input type="number" id="availableTrainingTime" min="0" max="24">
-        <br>
-        <label for="equipmentAvailability">Equipment Availability:</label>
-        <input type="checkbox" id="homeGym"> Home Gym
-        <input type="checkbox" id="gymMembership"> Gym Membership
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="results"></div>
+    <div class="calculator">
+        <h1>Fitness Questionnaire</h1>
+        <form id="questionnaire">
+            <label for="currentFitnessLevel">Current Fitness Level:</label>
+            <select id="currentFitnessLevel">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+            <br>
+            <label for="fitnessGoals">Fitness Goals:</label>
+            <textarea id="fitnessGoals"></textarea>
+            <br>
+            <label for="availableTrainingTime">Available Training Time (hours/week):</label>
+            <input type="number" id="availableTrainingTime" min="0" max="24">
+            <br>
+            <label for="equipmentAvailability">Equipment Availability:</label>
+            <input type="checkbox" id="homeGym"> Home Gym
+            <input type="checkbox" id="gymMembership"> Gym Membership
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="results"></div>
+    </div>
     <script>
         const questionnaireForm = document.getElementById("questionnaire");
         const resultsDiv = document.getElementById("results");
