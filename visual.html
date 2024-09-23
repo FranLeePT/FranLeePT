@@ -43,35 +43,6 @@
     <div class="calculator">
         <h1>Fitness Questionnaire</h1>
         <form id="questionnaire">
-            <label for="currentFitnessLevel">Current Fitness Level:</label>
-            <select id="currentFitnessLevel">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-            <br>
-            <label   
- for="fitnessGoals">Fitness Goals:</label>
-            <textarea id="fitnessGoals"></textarea>
-            <br>
-            <label for="availableTrainingTime">Available Training Time (hours/week):</label>
-            <input type="number" id="availableTrainingTime" min="0" max="24">
-            <br>
-            <label for="equipmentAvailability">Equipment Availability:</label>
-            <input type="checkbox" id="homeGym"> Home Gym
-            <input type="checkbox" id="gymMembership"> Gym Membership
-            <br>
-            <label for="fitnessTracker">Do you have a fitness tracker?</label>
-            <input type="radio" id="fitnessTrackerYes" name="fitnessTracker" value="yes"> Yes
-            <input type="radio" id="fitnessTrackerNo" name="fitnessTracker" value="no"> No
-            <br>
-            <label for="previousTrainer">Have you worked with a personal trainer before?</label>
-            <input type="radio" id="previousTrainerYes" name="previousTrainer" value="yes"> Yes
-            <input type="radio" id="previousTrainerNo" name="previousTrainer" value="no"> No
-            <br>
-            <label for="monthlyInvestment">What is your monthly budget for health and fitness?</label>
-            <input type="number" id="monthlyInvestment" min="0">
-            <br>
             <button type="submit">Submit</button>
         </form>
         <div id="results"></div>
@@ -79,6 +50,26 @@
     <script>
         const questionnaireForm = document.getElementById("questionnaire");
         const resultsDiv = document.getElementById("results");
+
+        function qualifyLead(data) {
+            const { currentFitnessLevel, fitnessGoals, availableTrainingTime, ...rest } = data;
+
+            if (currentFitnessLevel === 'beginner' && availableTrainingTime < 3) {
+                return 'Might benefit from a more structured program';
+            }
+
+            if (fitnessGoals.includes('weight loss') && !rest.homeGym && !rest.gymMembership) {
+                return 'Gym access would be beneficial';
+            }
+
+            if (currentFitnessLevel === 'advanced' && availableTrainingTime < 6) {
+                return 'May need to increase training time for advanced goals';
+            }
+
+            // Add more conditions based on your specific criteria
+
+            return 'Qualified for online personal training';
+        }
 
         questionnaireForm.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -93,10 +84,23 @@
             const hasPreviousTrainer = document.getElementById("previousTrainerYes").checked;
             const monthlyInvestment = document.getElementById("monthlyInvestment").value;
 
-            // Evaluate responses and provide feedback
-            // Add your evaluation logic here, considering the new questions
+            // Create data object
+            const data = {
+                currentFitnessLevel,
+                fitnessGoals,
+                availableTrainingTime,
+                homeGym: hasHomeGym,
+                gymMembership: hasGymMembership,
+                fitnessTracker: hasFitnessTracker,
+                previousTrainer: hasPreviousTrainer,
+                monthlyInvestment
+            };
 
-            resultsDiv.innerHTML = "Your results will be displayed here.";
+            // Evaluate lead
+            const qualificationResult = qualifyLead(data);
+
+            // Display result
+            resultsDiv.innerHTML = qualificationResult;
         });
     </script>
 </body>
