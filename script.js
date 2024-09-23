@@ -1,3 +1,16 @@
+let startingWeight = 0;
+let estimatedWeeklyWeightLoss = 0;
+
+function calculate() {
+  // ... (rest of your calculate() function)
+
+  // Update global variables
+  startingWeight = parseFloat(document.getElementById("startingWeight").value);
+  estimatedWeeklyWeightLoss = caloricDeficit * 7 / 3500;
+
+  // ... (rest of your chart configuration)
+}
+
 function calculate() {
   const startingWeight = parseFloat(document.getElementById("startingWeight").value);
   const goalWeight = parseFloat(document.getElementById("goalWeight").value);
@@ -21,19 +34,6 @@ function calculate() {
     `Reaching your goal weight in 6 months might be challenging. Consider increasing your caloric deficit or adjusting your goal weight.`;
 
   document.getElementById("result").textContent = result;
-}
-
-let startingWeight = 0;
-let estimatedWeeklyWeightLoss = 0;
-
-function calculate() {
-  // ... (rest of your calculate() function)
-
-  // Update global variables
-  startingWeight = parseFloat(document.getElementById("startingWeight").value);
-  estimatedWeeklyWeightLoss = caloricDeficit * 7 / 3500;
-
-  // ... (rest of your chart configuration)
 }
 
 // Create a Chart.js chart
