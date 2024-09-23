@@ -1,22 +1,24 @@
-const weightInput = document.getElementById('weight');
-const heightInput = document.getElementById('height');
-const calculateButton = document.getElementById('calculate');
-const resultDiv   
- = document.getElementById('result');
+function calculate() {
+  const startingWeight = parseFloat(document.getElementById("startingWeight").value);
+  const goalWeight = parseFloat(document.getElementById("goalWeight").value);
 
-calculateButton.addEventListener('click',   
- () => {
-  const weight = parseFloat(weightInput.value);
-  const height = parseFloat(heightInput.value);
+  // Assuming a caloric deficit of 500 calories per day for a 1-pound weekly weight loss
+  const caloricDeficit = 500;
+  const weeksInSixMonths = 26;
 
-  if (isNaN(weight) || isNaN(height)) {
-    resultDiv.textContent = 'Please enter valid weight and height   
- values.';
-    return;
-  }
+  // Calculate the total weight to lose
+  const totalWeightLoss = startingWeight - goalWeight;
 
-  const heightMeters = height / 100;
-  const bmi = weight / (heightMeters * heightMeters);
+  // Calculate the estimated weekly weight loss
+  const estimatedWeeklyWeightLoss = caloricDeficit * 7 / 3500;
 
-  resultDiv.textContent = `Your BMI is: ${bmi.toFixed(2)}`;
-});
+  // Calculate the estimated number of weeks to reach goal
+  const estimatedWeeksToGoal = totalWeightLoss / estimatedWeeklyWeightLoss;
+
+  // Check if the estimated time is within 6 months
+  const result = estimatedWeeksToGoal <= weeksInSixMonths ?
+    `You can reach your goal weight in approximately ${estimatedWeeksToGoal.toFixed(2)} weeks.` :
+    `Reaching your goal weight in 6 months might be challenging. Consider increasing your caloric deficit or adjusting your goal weight.`;
+
+  document.getElementById("result").textContent = result;
+}
