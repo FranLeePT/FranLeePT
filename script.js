@@ -10,7 +10,7 @@ function updateMetrics() {
     const bodyFatLost = startingBodyFat - currentBodyFat;
     const progressPercentage = (weightLost / startingWeight) * 100;
 
-    document.getElementById("weight-lost").textContent = weightLost.toFixed(2) + " lbs";
+    document.getElementById("weight-lost").textContent = weightLost.toFixed(2) + " kgs";
     document.getElementById("body-fat-lost").textContent = bodyFatLost.toFixed(1) + "%";
     document.querySelector('.progress-bar-inner').style.width = `${progressPercentage}%`;
     document.querySelector('p').textContent = `Progress: ${progressPercentage.toFixed(2)}%`;
