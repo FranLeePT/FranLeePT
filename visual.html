@@ -50,7 +50,8 @@
                 <option value="advanced">Advanced</option>
             </select>
             <br>
-            <label for="fitnessGoals">Fitness Goals:</label>
+            <label   
+ for="fitnessGoals">Fitness Goals:</label>
             <textarea id="fitnessGoals"></textarea>
             <br>
             <label for="availableTrainingTime">Available Training Time (hours/week):</label>
@@ -59,6 +60,17 @@
             <label for="equipmentAvailability">Equipment Availability:</label>
             <input type="checkbox" id="homeGym"> Home Gym
             <input type="checkbox" id="gymMembership"> Gym Membership
+            <br>
+            <label for="fitnessTracker">Do you have a fitness tracker?</label>
+            <input type="radio" id="fitnessTrackerYes" name="fitnessTracker" value="yes"> Yes
+            <input type="radio" id="fitnessTrackerNo" name="fitnessTracker" value="no"> No
+            <br>
+            <label for="previousTrainer">Have you worked with a personal trainer before?</label>
+            <input type="radio" id="previousTrainerYes" name="previousTrainer" value="yes"> Yes
+            <input type="radio" id="previousTrainerNo" name="previousTrainer" value="no"> No
+            <br>
+            <label for="monthlyInvestment">What is your monthly budget for health and fitness?</label>
+            <input type="number" id="monthlyInvestment" min="0">
             <br>
             <button type="submit">Submit</button>
         </form>
@@ -71,20 +83,20 @@
         questionnaireForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
+            // Get input values
             const currentFitnessLevel = document.getElementById("currentFitnessLevel").value;
             const fitnessGoals = document.getElementById("fitnessGoals").value;
             const availableTrainingTime = document.getElementById("availableTrainingTime").value;
             const hasHomeGym = document.getElementById("homeGym").checked;
             const hasGymMembership = document.getElementById("gymMembership").checked;
+            const hasFitnessTracker = document.getElementById("fitnessTrackerYes").checked;
+            const hasPreviousTrainer = document.getElementById("previousTrainerYes").checked;
+            const monthlyInvestment = document.getElementById("monthlyInvestment").value;
 
-            // Evaluate the responses and provide feedback
-            if (currentFitnessLevel === "beginner" && availableTrainingTime < 3) {
-                resultsDiv.innerHTML = "You might benefit from a more structured online training program.";
-            } else if (fitnessGoals.includes("weight loss") && !hasGymMembership && !hasHomeGym) {
-                resultsDiv.innerHTML = "Having access to gym equipment or a home gym would be beneficial for your weight loss goals.";
-            } else {
-                resultsDiv.innerHTML = "Based on your responses, you seem to be a good fit for online personal training!";
-            }
+            // Evaluate responses and provide feedback
+            // Add your evaluation logic here, considering the new questions
+
+            resultsDiv.innerHTML = "Your results will be displayed here.";
         });
     </script>
 </body>
