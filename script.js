@@ -1,60 +1,47 @@
-let startingWeight = 0;
-let estimatedWeeklyWeightLoss = 0;
+function calculateMacros() {
+  // Get user input
+  const goal = document.getElementById("goal").value;
+  const gender = document.getElementById("gender").value;
+  const age = parseInt(document.getElementById("age").value);
+  const height = parseFloat(document.getElementById("height").value);
+  const weight = parseFloat(document.getElementById("weight").value);
+  const activityLevel = parseInt(document.getElementById("activityLevel").value);
 
-function calculate() {
-  // ... (rest of your calculate() function)
+  // Calculate BMR
+  let bmr = 0;
+  if (gender === "male") {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
 
-  // Update global variables
-  startingWeight = parseFloat(document.getElementById("startingWeight").value);
-  estimatedWeeklyWeightLoss = caloricDeficit * 7 / 3500;
+  // Adjust BMR for activity level
+  bmr *= activityLevel;
 
-  // ... (rest of your chart configuration)
+  // Determine macro ratios based on goal
+  let proteinRatio = 0.3;
+  let carbRatio = 0.5;
+  let fatRatio = 0.2;
+  if (goal === "weightLoss") {
+    proteinRatio = 0.35;
+    carbRatio = 0.4;
+    fatRatio = 0.25;
+  } else if (goal === "muscleGain") {
+    proteinRatio = 0.4;
+    carbRatio = 0.5;
+    fatRatio = 0.1;
+  }
+
+  // Calculate recommended macros
+  const recommendedProtein = bmr * proteinRatio;
+  const recommendedCarbs = bmr * carbRatio;
+  const recommendedFats = bmr * fatRatio;
+
+  // Display results
+  document.getElementById("results").innerHTML = `
+    <p>Recommended Macros:</p>
+    <p>Protein: ${recommendedProtein.toFixed(2)} grams</p>
+    <p>Carbohydrates: ${recommendedCarbs.toFixed(2)} grams</p>
+    <p>Fats: ${recommendedFats.toFixed(2)} grams</p>
+  `;
 }
-
-function calculate() {
-  const startingWeight = parseFloat(document.getElementById("startingWeight").value);
-  const goalWeight = parseFloat(document.getElementById("goalWeight").value);
-
-  // Assuming a caloric deficit of 500 calories per day for a 1-pound weekly weight loss
-  const caloricDeficit = 500;
-  const weeksInSixMonths = 26;
-
-  // Calculate the total weight to lose
-  const totalWeightLoss = startingWeight - goalWeight;
-
-  // Calculate the estimated weekly weight loss
-  const estimatedWeeklyWeightLoss = caloricDeficit * 7 / 3500;
-
-  // Calculate the estimated number of weeks to reach goal
-  const estimatedWeeksToGoal = totalWeightLoss / estimatedWeeklyWeightLoss;
-
-  // Check if the estimated time is within 6 months
-  const result = estimatedWeeksToGoal <= weeksInSixMonths ?
-    `You can reach your goal weight in approximately ${estimatedWeeksToGoal.toFixed(2)} weeks.` :
-    `Reaching your goal weight in 6 months might be challenging. Consider increasing your caloric deficit or adjusting your goal weight.`;
-
-  document.getElementById("result").textContent = result;
-}
-
-// Create a Chart.js chart
-const ctx = document.getElementById('myChart').getContext('2d');
-const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: Array.from({ length:   
- weeksInSixMonths }, (_, i) => i + 1), // Weeks 1 to 26
-        datasets: [{
-            label: 'Weight Loss Over Time',
-            data: Array.from({ length: weeksInSixMonths }, (_, i) => startingWeight - estimatedWeeklyWeightLoss * i), // Weight at each week
-            borderColor: 'rgba(255, 99, 132, 1)', // Red
-            borderWidth: 2
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
