@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>6-Month Weight Loss Calculator</title>
+  <title>Macro Calculator</title>
 </head>
 <body>
-  <h1>6-Month Weight Loss Calculator</h1>
+  <h1>Macro Calculator</h1>
 
-  <label for="startingWeight">Starting Weight (lbs):</label>
-  <input type="number" id="startingWeight" name="startingWeight">
+  <form id="macroForm">
+    </form>
 
-  <label for="goalWeight">Goal Weight (lbs):</label>
-  <input type="number" id="goalWeight" name="goalWeight">
+  <button onclick="calculateMacros()">Calculate</button>
 
-  <button onclick="calculate()">Calculate</button>
+  <div id="results"></div>
 
-  <p id="result"></p>
-<canvas id="myChart"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
   <script src="script.js"></script>
 </body>
 </html>
