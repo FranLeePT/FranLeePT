@@ -1,21 +1,17 @@
-function calculateMacros() {
-  // Get user input
-  const gender = document.getElementById("gender").value;
-  const age = parseInt(document.getElementById("age").value);
-  const height = parseFloat(document.getElementById("height").value);
-  const weight = parseFloat(document.getElementById("weight").value);
-  const activityLevel = parseInt(document.getElementById("activityLevel").value);
+function updateMetrics() {
+    // Get starting and current values
+    const startingWeight = parseFloat(document.getElementById("starting-weight").textContent);
+    const currentWeight = parseFloat(document.getElementById("current-weight").textContent);
+    const startingBodyFat = parseFloat(document.getElementById("starting-body-fat").textContent);
+    const currentBodyFat = parseFloat(document.getElementById("current-body-fat").textContent);
 
-  // Calculate recommended macros
-  const recommendedProtein = weight * 2.2;
-  const recommendedFats = weight / 2;
-  const recommendedCarbs = weight;
+    // Calculate and update values
+    const weightLost = startingWeight - currentWeight;
+    const bodyFatLost = startingBodyFat - currentBodyFat;
+    const progressPercentage = (weightLost / startingWeight) * 100;
 
-  // Display results
-  document.getElementById("results").innerHTML = `
-    <p>Recommended Macros:</p>
-    <p>Protein: ${recommendedProtein.toFixed(2)} grams daily</p>
-    <p>Carbohydrates: ${recommendedCarbs.toFixed(2)} grams daily</p>
-    <p>Fats: ${recommendedFats.toFixed(2)} grams daily</p>
-  `;
+    document.getElementById("weight-lost").textContent = weightLost.toFixed(2) + " lbs";
+    document.getElementById("body-fat-lost").textContent = bodyFatLost.toFixed(1) + "%";
+    document.querySelector('.progress-bar-inner').style.width = `${progressPercentage}%`;
+    document.querySelector('p').textContent = `Progress: ${progressPercentage.toFixed(2)}%`;
 }
