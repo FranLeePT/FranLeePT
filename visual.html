@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weight Loss Visualizer</title>
+  <style>
+    /* Your CSS styles here */
+    .progress-bar {
+      height: 20px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="weight-loss-visualizer">
+    <label for="current-weight">Current Weight (kg):</label>
+    <input type="number" id="current-weight">
+    <label for="desired-weight">Desired Weight (kg):</label>
+    <input type="number" id="desired-weight">
+    <button id="visualize">Visualize</button>
+    <div id="visualization"></div>
+  </div>
+
+  <script>
+    // Your JavaScript code here
+    const currentWeightInput = document.getElementById("current-weight");
+    const desiredWeightInput = document.getElementById("desired-weight");
+    const visualizeButton = document.getElementById("visualize");
+    const visualizationDiv = document.getElementById("visualization");
+
+    visualizeButton.addEventListener("click", () => {
+      const currentWeight = parseFloat(currentWeightInput.value);
+      const desiredWeight = parseFloat(desiredWeightInput.value);
+
+      if (isNaN(currentWeight) || isNaN(desiredWeight) || currentWeight <= 0 || desiredWeight <= 0) {
+        alert("Please enter valid weights.");
+        return;
+      }
+
+      // Calculate progress percentage
+      const progressPercentage = (1 - (desiredWeight / currentWeight)) * 100;
+
+      // Create a progress bar
+      const progressBar = document.createElement("div");
+      progressBar.classList.add("progress-bar");
+      progressBar.style.width = `${progressPercentage}%`;   
+
+      visualizationDiv.appendChild(progressBar);
+
+      // Create a progress bar fill
+      const progressBarFill = document.createElement("div");
+      progressBarFill.classList.add("progress-bar-fill");
+      progressBar.appendChild(progressBarFill);   
+
+    });
+  </script>
+</body>
+</html>
