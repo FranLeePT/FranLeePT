@@ -1,64 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Weight Loss Visualizer</title>
-  <style>
-    /* Your CSS styles here */
-    .progress-bar {
-      height: 20px;
-      background-color: #f0f0f0;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background-color: #4CAF50;
-    }
-  </style>
+    <title>Fitness Questionnaire</title>
 </head>
 <body>
-  <div class="weight-loss-visualizer">
-    <label for="current-weight">Current Weight (kg):</label>
-    <input type="number" id="current-weight">
-    <label for="desired-weight">Desired Weight (kg):</label>
-    <input type="number" id="desired-weight">
-    <button id="visualize">Visualize</button>
-    <div id="visualization"></div>
-  </div>
+    <h1>Fitness Questionnaire</h1>
+    <form id="questionnaire">
+        <label for="currentFitnessLevel">Current Fitness Level:</label>
+        <select id="currentFitnessLevel">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+        </select>
+        <br>
+        <label   
+ for="fitnessGoals">Fitness Goals:</label>
+        <textarea id="fitnessGoals"></textarea>
+        <br>
+        <label for="availableTrainingTime">Available Training Time (hours/week):</label>
+        <input type="number" id="availableTrainingTime" min="0" max="24">
+        <br>
+        <label for="equipmentAvailability">Equipment Availability:</label>
+        <input type="checkbox" id="homeGym"> Home Gym
+        <input type="checkbox" id="gymMembership"> Gym Membership
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="results"></div>
+    <script>
+        const questionnaireForm = document.getElementById("questionnaire");
+        const resultsDiv = document.getElementById("results");
 
-  <script>
-    // Your JavaScript code here
-    const currentWeightInput = document.getElementById("current-weight");
-    const desiredWeightInput = document.getElementById("desired-weight");
-    const visualizeButton = document.getElementById("visualize");
-    const visualizationDiv = document.getElementById("visualization");
+        questionnaireForm.addEventListener("submit", (event) => {
+            event.preventDefault();
 
-    visualizeButton.addEventListener("click", () => {
-      const currentWeight = parseFloat(currentWeightInput.value);
-      const desiredWeight = parseFloat(desiredWeightInput.value);
+            const currentFitnessLevel = document.getElementById("currentFitnessLevel").value;
+            const fitnessGoals = document.getElementById("fitnessGoals").value;
+            const availableTrainingTime = document.getElementById("availableTrainingTime").value;
+            const hasHomeGym = document.getElementById("homeGym").checked;
+            const hasGymMembership = document.getElementById("gymMembership").checked;
 
-      if (isNaN(currentWeight) || isNaN(desiredWeight) || currentWeight <= 0 || desiredWeight <= 0) {
-        alert("Please enter valid weights.");
-        return;
-      }
-
-      // Calculate progress percentage
-      const progressPercentage = (1 - (desiredWeight / currentWeight)) * 100;
-
-      // Create a progress bar
-      const progressBar = document.createElement("div");
-      progressBar.classList.add("progress-bar");
-      progressBar.style.width = `${progressPercentage}%`;   
-
-      visualizationDiv.appendChild(progressBar);
-
-      // Create a progress bar fill
-      const progressBarFill = document.createElement("div");
-      progressBarFill.classList.add("progress-bar-fill");
-      progressBar.appendChild(progressBarFill);   
-
-    });
-  </script>
+            // Evaluate the responses and provide feedback
+            if (currentFitnessLevel === "beginner" && availableTrainingTime < 3) {
+                resultsDiv.innerHTML = "You might benefit from a more structured online training program.";
+            } else if (fitnessGoals.includes("weight loss") && !hasGymMembership && !hasHomeGym) {
+                resultsDiv.innerHTML = "Having access to gym equipment or a home gym would be beneficial for your weight loss goals.";
+            } else {
+                resultsDiv.innerHTML = "Based on your responses, you seem to be a good fit for online personal training!";
+            }
+        });
+    </script>
 </body>
 </html>
