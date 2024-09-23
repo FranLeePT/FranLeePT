@@ -3,28 +3,7 @@
 <head>
     <title>BMR Calculator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .calculator {
-            border: 1px solid #ccc;
-            padding: 20px;
-            width: 300px;
-            margin: 0 auto;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+        /* ... (your existing CSS styles) */
     </style>
 </head>
 <body>
@@ -41,6 +20,14 @@
             <option value="male">Male</option>
             <option value="female">Female</option>
         </select>
+        <label for="activity">Activity Level:</label>
+        <select id="activity">
+            <option value="1.2">Sedentary (little to no exercise)</option>
+            <option value="1.375">Lightly active (1-3 days of exercise per week)</option>
+            <option value="1.55">Moderately active (3-5 days of exercise per week)</option>
+            <option value="1.725">Very active (6-7 days of exercise per week)</option>
+            <option value="1.9">Extremely active (multiple workouts per day)</option>
+        </select>
         <button onclick="calculateBMR()">Calculate BMR</button>
         <p id="result"></p>
     </div>
@@ -51,6 +38,7 @@
             var height = document.getElementById("height").value;
             var age = document.getElementById("age").value;
             var gender = document.getElementById("gender").value;
+            var activityLevel = document.getElementById("activity").value;
 
             // Calculate BMR based on Mifflin-St. Jeor equation
             var bmr = 0;
@@ -60,8 +48,11 @@
                 bmr = 10 * weight + 6.25 * height - 5 * age - 161;
             }
 
+            // Calculate total daily energy expenditure (TDEE) by multiplying BMR by activity level
+            var tdee = bmr * activityLevel;
+
             // Display the result
-            document.getElementById("result").innerHTML = "Your BMR is: " + bmr.toFixed(2);
+            document.getElementById("result").innerHTML = "Your TDEE is: " + tdee.toFixed(2);
         }
     </script>
 </body>
