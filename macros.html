@@ -2,91 +2,129 @@
 <html>
 <head>
     <title>Macro Calculator</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Dark black background */
+            color: #fff; /* White text */
+        }
+
+        .calculator {
+            background-color: #333; /* Dark gray background */
+            color: #fff;
+        }
+
+        h1 {
+            color: #8e44ad; /* Dark purple heading */
+        }
+
+        label {
+            color: #ccc; /* Light gray labels */
+        }
+
+        input, select, button {
+            background-color: #444;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #result {
+            color: #8e44ad; /* Dark purple result */
+        }
+    </style>
 </head>
 <body>
-    <h1>Macro Calculator</h1>
-    <form id="macroCalculator">
-        <label for="gender">Gender:</label>
-        <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-        <br>
-        <label for="age">Age:</label>
-        <input type="number" id="age" min="1" step="1">
-        <br>
-        <label for="height">Height (cm):</label>
-        <input type="number" id="height" min="1" step="1">
-        <br>
-        <label for="weight">Weight (kg):</label>
-        <input type="number" id="weight" min="1" step="0.1">
-        <br>
-        <label for="activityLevel">Activity Level:</label>
-        <select id="activityLevel">
-            <option value="sedentary">Sedentary</option>
-            <option value="lightlyActive">Lightly Active</option>
-            <option value="moderatelyActive">Moderately Active</option>
-            <option value="veryActive">Very Active</option>
-            <option value="extremelyActive">Extremely Active</option>
-        </select>
-        <br>
-        <button type="submit">Calculate</button>
-    </form>
-    <div id="results"></div>
+    <div class="calculator">
+        <h1>Macro Calculator</h1>
+        <form id="macroCalculator">
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <br>
+            <label for="age">Age:</label>
+            <input type="number" id="age" min="1" step="1">
+            <br>
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" min="1" step="1">
+            <br>
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" min="1" step="0.1">
+            <br>
+            <label for="activityLevel">Activity Level:</label>
+            <select id="activityLevel">
+                <option value="sedentary">Sedentary</option>
+                <option value="lightlyActive">Lightly Active</option>
+                <option value="moderatelyActive">Moderately Active</option>
+                <option value="veryActive">Very Active</option>
+                <option value="extremelyActive">Extremely Active</option>
+            </select>
+            <br>
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="results"></div>
+    </div>
+    <script>
+        const calculatorForm = document.getElementById("macroCalculator");
+        const resultsDiv = document.getElementById("results");
+
+        calculatorForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const gender = document.getElementById("gender").value;
+            const age = document.getElementById("age").value;
+            const height = document.getElementById("height").value;
+            const weight = document.getElementById("weight").value;
+            const activityLevel = document.getElementById("activityLevel").value;
+
+            // Calculate BMR (Basal Metabolic Rate) using the Mifflin-St Jeor equation
+            let bmr;
+            if (gender === "male") {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            // Calculate total daily calories based on activity level
+            let totalCalories;
+            switch (activityLevel) {
+                case "sedentary":
+                    totalCalories = bmr * 1.2;
+                    break;
+                case "lightlyActive":
+                    totalCalories = bmr * 1.375;
+                    break;
+                case "moderatelyActive":
+                    totalCalories = bmr * 1.55;
+                    break;
+                case "veryActive":
+                    totalCalories = bmr * 1.725;
+                    break;
+                case "extremelyActive":
+                    totalCalories = bmr * 1.9;
+                    break;
+            }
+
+            // Calculate macros based on the new ratio
+            const protein = weight * 2.2;
+            const carbs = weight * 1;
+            const fats = weight * 0.5;
+
+            // Display results
+            resultsDiv.innerHTML = `
+                <p>Total Daily Calories: ${totalCalories.toFixed(2)}</p>
+                <p>Protein: ${protein.toFixed(2)} grams</p>
+                <p>Carbohydrates: ${carbs.toFixed(2)} grams</p>
+                <p>Fats: ${fats.toFixed(2)} grams</p>
+            `;
+        });
+    </script>
 </body>
-<script>
-    const calculatorForm = document.getElementById("macroCalculator");
-    const resultsDiv = document.getElementById("results");
-
-    calculatorForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const gender = document.getElementById("gender").value;
-        const age = document.getElementById("age").value;
-        const height = document.getElementById("height").value;
-        const weight = document.getElementById("weight").value;
-        const activityLevel = document.getElementById("activityLevel").value;
-
-        // Calculate BMR (Basal Metabolic Rate) using the Mifflin-St Jeor equation
-        let bmr;
-        if (gender === "male") {
-            bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
-        } else {
-            bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
-        }
-
-        // Calculate total daily calories based on activity level
-        let totalCalories;
-        switch (activityLevel) {
-            case "sedentary":
-                totalCalories = bmr * 1.2;
-                break;
-            case "lightlyActive":
-                totalCalories = bmr * 1.375;
-                break;
-            case "moderatelyActive":
-                totalCalories = bmr * 1.55;
-                break;
-            case "veryActive":
-                totalCalories = bmr * 1.725;
-                break;
-            case "extremelyActive":
-                totalCalories = bmr * 1.9;
-                break;
-        }
-
-        // Calculate macros based on the new ratio
-        const protein = weight * 2.2;
-        const carbs = weight * 1;
-        const fats = weight * 0.5;
-
-        // Display results
-        resultsDiv.innerHTML = `
-            <p>Total Daily Calories: ${totalCalories.toFixed(2)}</p>
-            <p>Protein: ${protein.toFixed(2)} grams</p>
-            <p>Carbohydrates: ${carbs.toFixed(2)} grams</p>
-            <p>Fats: ${fats.toFixed(2)} grams</p>
-        `;
-    });
-</script>
 </html>
