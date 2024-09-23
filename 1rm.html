@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>1RM Calculator</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>1RM Calculator</h1>
+
+    <label for="weight-lifted">Weight Lifted (kg):</label>
+    <input type="number" id="weight-lifted">
+
+    <label for="reps-completed">Reps Completed:</label>
+    <input type="number" id="reps-completed">
+
+    <button onclick="calculate1RM()">Calculate</button>
+
+    <p id="estimated-1rm"></p>
+</body>
+<script>
+    function calculate1RM() {
+        // Get user input
+        const weightLifted = parseFloat(document.getElementById("weight-lifted").value);
+        const repsCompleted = parseFloat(document.getElementById("reps-completed").value);
+
+        // Calculate estimated 1RM using the Brzycki formula
+        const estimated1RM = weightLifted * (1 + (0.0318 * repsCompleted));
+
+        // Display the result
+        document.getElementById("estimated-1rm").textContent = `Estimated 1RM: ${estimated1RM.toFixed(2)} kg`;
+    }
+</script>
+</html>
