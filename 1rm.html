@@ -2,63 +2,77 @@
 <html>
 <head>
     <title>1RM Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Dark black background */
-    color: #fff; /* White text */
-}
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Dark black background */
+            color: #fff; /* White text */
+        }
 
-h1 {
-    color: #8e44ad; /* Dark purple heading */
-}
+        h1 {
+            color: #8e44ad; /* Dark purple heading */
+            text-align: center;
+        }
 
-label {
-    color: #ccc; /* Light gray labels */
-}
+        label {
+            color: #ccc; /* Light gray labels */
+            display: block;
+            margin-bottom: 5px;
+        }
 
-input, button {
-    background-color: #333;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    color: #fff;
-}
+        input, button {
+            width: 100%;
+            background-color: #333;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
 
-button:hover {
-    background-color: #444;
-}
+        button:hover {
+            background-color: #444;
+        }
 
-.result {
-    font-weight: bold;
-    margin-top: 20px;
-}
+        .result {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .calculator {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>1RM Calculator</h1>
 
-    <label for="weight-lifted">Weight Lifted (kg):</label>
-    <input type="number" id="weight-lifted">
+    <div class="calculator">
+        <label for="weight-lifted">Weight Lifted (kg):</label>
+        <input type="number" id="weight-lifted">
 
-    <label for="reps-completed">Reps Completed:</label>
-    <input type="number" id="reps-completed">
+        <label for="reps-completed">Reps Completed:</label>
+        <input type="number" id="reps-completed">
 
-    <button onclick="calculate1RM()">Calculate</button>
+        <button onclick="calculate1RM()">Calculate</button>
 
-    <p id="estimated-1rm"></p>
+        <p id="estimated-1rm"></p>
+    </div>
+    <script>
+        function calculate1RM() {
+            // Get user input
+            const weightLifted = parseFloat(document.getElementById("weight-lifted").value);
+            const repsCompleted = parseFloat(document.getElementById("reps-completed").value);
+
+            // Calculate estimated 1RM using the Brzycki formula
+            const estimated1RM = weightLifted * (1 + (0.0318 * repsCompleted));
+
+            // Display the result
+            document.getElementById("estimated-1rm").textContent = `Estimated 1RM: ${estimated1RM.toFixed(2)} kg`;
+        }
+    </script>
 </body>
-<script>
-    function calculate1RM() {
-        // Get user input
-        const weightLifted = parseFloat(document.getElementById("weight-lifted").value);
-        const repsCompleted = parseFloat(document.getElementById("reps-completed").value);
-
-        // Calculate estimated 1RM using the Brzycki formula
-        const estimated1RM = weightLifted * (1 + (0.0318 * repsCompleted));
-
-        // Display the result
-        document.getElementById("estimated-1rm").textContent = `Estimated 1RM: ${estimated1RM.toFixed(2)} kg`;
-    }
-</script>
 </html>
