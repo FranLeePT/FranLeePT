@@ -2,46 +2,60 @@
 <html>
 <head>
     <title>Total Daily Calories Expended</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-   body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Dark black background */
-    color: #fff; /* White text */
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Dark black background */
+            color: #fff; /* White text */
+        }
 
-.calculator {
-    background-color: #333; /* Dark gray background */
-    color: #fff;
-}
+        .calculator {
+            background-color: #333; /* Dark gray background */
+            color: #fff;
+            padding: 20px;
+            margin: 20px;
+        }
 
-h1 {
-    color: #8e44ad; /* Dark purple heading */
-}
+        h1 {
+            color: #8e44ad; /* Dark purple heading */
+            text-align: center;
+        }
 
-label {
-    color: #ccc; /* Light gray labels */
-}
+        label {
+            color: #ccc; /* Light gray labels */
+            display: block;
+            margin-bottom: 5px;
+        }
 
-input, select, button {
-    background-color: #444;
-    border: none;
-    padding: 10px;
-    border-radius: 3px;
-    color: #fff;
-}
+        input, select, button {
+            width: 100%;
+            background-color: #444;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            color: #fff;
+        }
 
-button:hover {
-    background-color: #555;
-}
+        button:hover {
+            background-color: #555;
+        }
 
-#result {
-    color: #8e44ad; /* Dark purple result */
-}
+        #result {
+            color: #8e44ad; /* Dark purple result */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .calculator {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-
-<nav>
+    <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="Tracker.html">Weight Loss Calculator</a></li>
@@ -50,8 +64,7 @@ button:hover {
             <li><a href="macros.html">Macros Calculator</a></li>
         </ul>
     </nav>
-    
-    
+
     <div class="calculator">
         <h1>Total Daily Calories Expended</h1>
         <label for="weight">Weight (kg):</label>
